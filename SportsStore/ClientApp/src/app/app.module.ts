@@ -23,6 +23,7 @@ import { StoreModule } from "./store/store.module";
         ModelModule,
         FormsModule,
         StoreModule
+
     ],
     providers: [],
     bootstrap: [AppComponent]
