@@ -26,3 +26,8 @@ dotnet run
 
 dotnet dev-certs https –-clean
 dotnet dev-certs https --trust
+
+# Spa service
+dotnet add package Microsoft.AspNetCore.SpaServices.Extensions --version 3.0.0
+
+proxy or managed
