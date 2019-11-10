@@ -31,3 +31,15 @@ dotnet dev-certs https --trust
 dotnet add package Microsoft.AspNetCore.SpaServices.Extensions --version 3.0.0
 
 proxy or managed
+
+# Efcore
+
+dotnet tool uninstall --global dotnet-ef
+dotnet tool install --global dotnet-ef --version 3.0.0
+
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0
+
+dotnet ef migrations add Initial
+
+dotnet ef database drop --force
