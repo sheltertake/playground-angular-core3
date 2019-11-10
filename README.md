@@ -43,3 +43,12 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0
 dotnet ef migrations add Initial
 
 dotnet ef database drop --force
+
+# Swashbukle + Json
+dotnet add package Swashbuckle.AspNetCore --version 5.0.0-rc2
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 3.0.0
+
+dotnet ef migrations add ChangeDeleteBehavior
+
+dotnet ef database drop --force
+dotnet watch run
