@@ -52,3 +52,5 @@ dotnet ef migrations add ChangeDeleteBehavior
 
 dotnet ef database drop --force
 dotnet watch run
+
+# Angular router + mvc fallback + angular components
