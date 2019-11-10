@@ -54,3 +54,9 @@ dotnet ef database drop --force
 dotnet watch run
 
 # Angular router + mvc fallback + angular components
+
+# Manage client libraries in dotnet web api
+dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+libman install font-awesome@5.9.0 -p cdnjs -d wwwroot/lib/font-awesome
+
+# Store module -> pagination + rating + fontawasome
