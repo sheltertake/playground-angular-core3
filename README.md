@@ -69,3 +69,24 @@ dotnet tool install --global dotnet-sql-cache --version 3.0.0
 dotnet sql-cache create "Server=(localdb)\MSSQLLocalDB;Database=EssentialApp" "dbo" "SessionData"
 
 dotnet ef migrations add Orders
+
+# Resetting database
+
+dotnet ef database drop --force
+dotnet ef database update
+dotnet sql-cache create "Server=(localdb)\MSSQLLocalDB;Database=EssentialApp" "dbo" "SessionData"
+
+# Blazor
+dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19465.2
+dotnet new blazorwasm -o BlazorApp
+dotnet watch run --urls=https://127.0.0.1:5500
+
+
+## navigate https://127.0.0.1:5500
+
+System.Console.WriteLine("Counter: " + currentCount);
+
+restart
+
+# Blazor server
+<base href="/blazor/" />
