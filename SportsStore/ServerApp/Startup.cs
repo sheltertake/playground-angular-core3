@@ -51,6 +51,7 @@ namespace ServerApp
                 options.SchemaName = "dbo";
                 options.TableName = "SessionData";
             });
+
             services.AddSession(options => {
                 options.Cookie.Name = "SportsStore.Session";
                 options.IdleTimeout = System.TimeSpan.FromHours(48);
