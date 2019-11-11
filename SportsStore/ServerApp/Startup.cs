@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using ServerApp.Models;
@@ -55,6 +58,12 @@ namespace ServerApp
                 options.Cookie.IsEssential = true;
             });
 
+            //blazor
+            services.AddResponseCompression(opts => {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +80,16 @@ namespace ServerApp
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            //app.UseStaticFiles();
+            //blazor
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "/blazor",
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(),
+                        "../BlazorApp/wwwroot"))
+            });
 
             app.UseSession();
 
@@ -92,7 +110,14 @@ namespace ServerApp
                     pattern: "{target:regex(store|cart)}/{*catchall}",
                     defaults: new { controller = "Home", action = "Index" });
 
+                //blazor
+                endpoints.MapFallbackToClientSideBlazor<BlazorApp.Startup>("blazor/{*path:nonfile}", "index.html");
+
             });
+
+            //blazor
+            app.Map("/blazor", opts =>
+                opts.UseClientSideBlazorFiles<BlazorApp.Startup>());
 
             app.UseSwagger();
             app.UseSwaggerUI(options => {

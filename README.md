@@ -90,3 +90,10 @@ restart
 
 # Blazor server
 <base href="/blazor/" />
+
+dotnet add package Microsoft.AspNetCore.Blazor.Server --version 3.0.0-preview9.19465.2
+dotnet add reference ..\BlazorApp
+
+now blazor response
+https://localhost:5001/blazor
+and not https://127.0.0.1:5500
