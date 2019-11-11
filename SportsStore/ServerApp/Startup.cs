@@ -110,8 +110,14 @@ namespace ServerApp
                     pattern: "{target:regex(store|cart)}/{*catchall}",
                     defaults: new { controller = "Home", action = "Index" });
 
+
                 //blazor
-                endpoints.MapFallbackToClientSideBlazor<BlazorApp.Startup>("blazor/{*path:nonfile}", "index.html");
+                endpoints.MapControllerRoute(
+                    name: "blazor_integration",
+                    pattern: "/blazor/{*path:nonfile}",
+                    defaults: new { controller = "Home", action = "Blazor" });
+
+                //endpoints.MapFallbackToClientSideBlazor<BlazorApp.Startup>("blazor/{*path:nonfile}", "index.html");
 
             });
 

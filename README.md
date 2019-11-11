@@ -97,3 +97,5 @@ dotnet add reference ..\BlazorApp
 now blazor response
 https://localhost:5001/blazor
 and not https://127.0.0.1:5500
+
+# Displaying Blazor Components in an MVC Razor View
