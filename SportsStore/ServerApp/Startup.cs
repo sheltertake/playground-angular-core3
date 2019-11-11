@@ -59,10 +59,10 @@ namespace ServerApp
             });
 
             //blazor
-            services.AddResponseCompression(opts => {
-                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-                    new[] { "application/octet-stream" });
-            });
+            //services.AddResponseCompression(opts => {
+            //    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+            //        new[] { "application/octet-stream" });
+            //});
 
         }
 
@@ -81,15 +81,15 @@ namespace ServerApp
             }
             app.UseHttpsRedirection();
 
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
             //blazor
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                RequestPath = "/blazor",
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(),
-                        "../BlazorApp/wwwroot"))
-            });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    RequestPath = "/blazor",
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(),
+            //            "../BlazorApp/wwwroot"))
+            //});
 
             app.UseSession();
 
@@ -122,8 +122,7 @@ namespace ServerApp
             });
 
             //blazor
-            app.Map("/blazor", opts =>
-                opts.UseClientSideBlazorFiles<BlazorApp.Startup>());
+            //app.Map("/blazor", opts => opts.UseClientSideBlazorFiles<BlazorApp.Startup>());
 
             app.UseSwagger();
             app.UseSwaggerUI(options => {
