@@ -2,12 +2,19 @@ import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Repository } from '../models/repository';
 import { filter } from "rxjs/operators";
+import { Observable, Subject } from 'rxjs';
+
+export type NavigationUpdate = {
+    category: string,
+    page: number
+}
 
 @Injectable()
 export class NavigationService {
+    private changeSubject = new Subject<NavigationUpdate>();
 
     constructor(private repository: Repository, private router: Router,
-            private active: ActivatedRoute) {
+        private active: ActivatedRoute) {
         router.events
             .pipe(filter(event => event instanceof NavigationEnd))
             .subscribe(ev => this.handleNavigationChange());
@@ -22,7 +29,7 @@ export class NavigationService {
                     this.repository.filter.category = "";
                     this.repository.paginationObject.currentPage = value;
                 } else {
-                    this.repository.filter.category 
+                    this.repository.filter.category
                         = active.params["categoryOrPage"];
                     this.repository.paginationObject.currentPage = 1;
                 }
@@ -34,6 +41,9 @@ export class NavigationService {
             }
             this.repository.getProducts();
         }
+    }
+    get change(): Observable<NavigationUpdate> {
+        return this.changeSubject;
     }
 
     get categories(): string[] {

@@ -9,6 +9,7 @@ import { ProductTableComponent } from "./structure/productTable.component";
 import { CategoryFilterComponent } from "./structure/categoryFilter.component";
 import { ProductDetailComponent } from "./structure/productDetail.component";
 import { StoreModule } from "./store/store.module";
+import { ExternalService } from "./external.service";
 
 @NgModule({
     declarations: [
@@ -25,7 +26,9 @@ import { StoreModule } from "./store/store.module";
         StoreModule
 
     ],
-    providers: [],
+    providers: [ExternalService],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(external: ExternalService) { }
+}

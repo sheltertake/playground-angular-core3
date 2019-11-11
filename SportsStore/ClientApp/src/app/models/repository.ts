@@ -37,22 +37,41 @@ export class Repository {
             .subscribe(p => this.product = p);
     }
 
-    getProducts() {
-        let url = `${productsUrl}?related=${this.filter.related}`;
-        if (this.filter.category) {
-            url +=  `&category=${this.filter.category}`;
-        }
-        if (this.filter.search) {
-            url += `&search=${this.filter.search}`;
-        }
-        //this.http.get<Product[]>(url).subscribe(prods => this.products = prods);
+    //getProducts() {
+    //    let url = `${productsUrl}?related=${this.filter.related}`;
+    //    if (this.filter.category) {
+    //        url +=  `&category=${this.filter.category}`;
+    //    }
+    //    if (this.filter.search) {
+    //        url += `&search=${this.filter.search}`;
+    //    }
+    //    //this.http.get<Product[]>(url).subscribe(prods => this.products = prods);
 
-        url += "&metadata=true";
-        this.http.get<productsMetadata>(url)
-          .subscribe(md => {
-            this.products = md.data;
-            this.categories = md.categories;
-          });
+    //    url += "&metadata=true";
+    //    this.http.get<productsMetadata>(url)
+    //      .subscribe(md => {
+    //        this.products = md.data;
+    //        this.categories = md.categories;
+    //      });
+    //}
+
+    getProducts(): Promise<productsMetadata> {
+      let url = `${productsUrl}?related=${this.filter.related}`;
+      if (this.filter.category) {
+        url += `&category=${this.filter.category}`;
+      }
+      if (this.filter.search) {
+        url += `&search=${this.filter.search}`;
+      }
+      url += "&metadata=true";
+
+      return this.http.get<productsMetadata>(url)
+        .toPromise<productsMetadata>()
+        .then(md => {
+          this.products = md.data;
+          this.categories = md.categories;
+          return md;
+        });
     }
 
     getSuppliers() {

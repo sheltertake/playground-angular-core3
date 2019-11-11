@@ -99,3 +99,7 @@ https://localhost:5001/blazor
 and not https://127.0.0.1:5500
 
 # Displaying Blazor Components in an MVC Razor View
+
+# Using Angular and Blazor in the Same View
+
+bug hidden. I had to undo the pending changes and restart from scratch. The issue
